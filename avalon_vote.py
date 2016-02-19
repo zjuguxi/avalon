@@ -9,6 +9,27 @@ Captain_Vote_Times = 0
 
 
 
+
+# 最终胜负判断
+
+def result():
+
+    if (win < 3 and lose < 3):
+        Captain_Vote()
+
+    elif win == 3:
+        print "***** Arthur's Team Finally wins!*****"
+        exit()
+    elif lose == 3:
+        print "****** Mordred's Team Finally wins! *****"
+    else:
+        print "***** You found a bug! Report it to GuXi! *****"
+        exit()
+
+
+
+
+
 # 定义队长投票
 
 def Captain_Vote():
@@ -128,14 +149,17 @@ def Captain_Vote():
         print "Up vote is %s " % captain_vote_up
         print "Down vote is %s " % captain_vote_down
         print "Now vote for the task."
-        Task_Vote
+        Task_Vote()
     else:
-        if Captain_Vote_Times > 5:
+        if Captain_Vote_Times > 4:
+            Captain_Vote_Times = 0
             print "Mordred's Team win!"
             print "Up vote is %s " % captain_vote_up
             print "Down vote is %s " % captain_vote_down
             lose += 1
-            Captain_Vote()
+            print "win = %s " % win
+            print "lose = %s " % lose
+            result()
         else:    
             print "Captain Vote didn't passed!"
             print "Up vote is %s " % captain_vote_up
@@ -153,9 +177,10 @@ def Captain_Vote():
 # 定义任务投票
 
 def Task_Vote():
-    global task_vote_up, task_vote_down, win, lose
+    global task_vote_up, task_vote_down, win, lose, Captain_Vote_Times
 
 
+    Captain_Vote_Times = 0
     task_vote_up = 0
     task_vote_down = 0
     # 队长投票
@@ -261,37 +286,25 @@ def Task_Vote():
 
     if  task_vote_up - task_vote_down > 0:
         print "Arthur's Team wins!"
-        print "Up vote is %S." % task_vote_up
+        print "Up vote is %s." % task_vote_up
         print "Down vote is %s." % task_vote_down
         win += 1
+    
     else:
         print "Mordred's Team wins!"
-        print "Up vote is %S." % task_vote_up
+        print "Up vote is %s." % task_vote_up
         print "Down vote is %s." % task_vote_down
         lose += 1
-        print "win = %s " % win
-        print "lose = %s " % lose
         Captain_Vote_Times = 0
 
     print "win = %s " % win
     print "lose = %s " % lose
+    result()
 
 
+
+    
 
 # 正式开始，队长投票（最多5次），然后进行任务投票
 
 Captain_Vote()
-
-
-# 投票流程
-
-for i in range(1, 6):
-    if (win < 3 and lose < 3):
-        Captain_Vote()
-
-    elif win == 3:
-        print "Arthur's Team Finally wins!"
-        exit()
-    elif lose == 3:
-        print "Mordred's Team Finally wins!"
-        exit()
