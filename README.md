@@ -6,4 +6,4 @@ This a avalon the board game written with python.
 
 新手习作，希望大家指点。
 
-谢谢！
+谢谢！！！
